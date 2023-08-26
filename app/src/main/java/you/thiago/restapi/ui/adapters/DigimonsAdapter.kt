@@ -3,18 +3,24 @@ package you.thiago.restapi.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import you.thiago.restapi.R
 import you.thiago.restapi.datasource.Digimon
 
 class DigimonsAdapter(private val dataSet: List<Digimon>) : RecyclerView.Adapter<DigimonsAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val textView: TextView
+        val textName: TextView
+        val textLevel: TextView
+        val imageProfile: ImageView
 
         init {
-            textView = view.findViewById(R.id.txt_name)
+            textName = view.findViewById(R.id.txt_name)
+            textLevel = view.findViewById(R.id.txt_level)
+            imageProfile = view.findViewById(R.id.img_profile)
         }
     }
 
@@ -24,7 +30,12 @@ class DigimonsAdapter(private val dataSet: List<Digimon>) : RecyclerView.Adapter
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.textView.text = dataSet[position].name
+        viewHolder.textName.text = dataSet[position].name
+        viewHolder.textLevel.text = dataSet[position].level
+
+        Glide.with(viewHolder.imageProfile.context)
+            .load(dataSet[position].img)
+            .into(viewHolder.imageProfile)
     }
 
     override fun getItemCount() = dataSet.size

@@ -2,6 +2,7 @@ package you.thiago.restapi
 
 import android.os.Bundle
 import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Row
@@ -38,6 +39,8 @@ class MainActivity : FragmentActivity() {
     }
 
     private fun getDigimonData() {
+        Toast.makeText(this, "Carregando...", Toast.LENGTH_SHORT).show()
+
         lifecycleScope.launch(Dispatchers.IO) {
             Service().getDigimons().also { digimons ->
                 if (digimons.isNotEmpty()) {
